@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class EditPost extends StatelessWidget {
   const EditPost({super.key});
 
@@ -10,7 +9,13 @@ class EditPost extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Edit Post"),
         centerTitle: true,
-        actions: [IconButton(onPressed: (){}, icon: const Icon(Icons.delete), color: Colors.red,)],
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.delete),
+            color: Colors.red,
+          )
+        ],
       ),
     );
   }

@@ -16,7 +16,7 @@ class SocialApp extends StatelessWidget {
       body: ListView.builder(
         itemCount: 15,
         itemBuilder: (context,index) => ListTile(
-          leading: const CircleAvatar(backgroundImage: AssetImage("images/droidcon_logo.png"),),
+          leading: const CircleAvatar(backgroundImage: AssetImage("assets/images/droidcon_logo.png"),),
           title: Text("Dummy Username"),
           subtitle: Text("dummy@gmail.com"),
           trailing: const Icon(Icons.navigate_next),
