@@ -24,11 +24,11 @@ class User {
     username = json['username'];
     email = json['email'];
     address =
-    json['address'] != null ? new Address.fromJson(json['address']) : null;
+    json['address'] != null ? Address.fromJson(json['address']) : null;
     phone = json['phone'];
     website = json['website'];
     company =
-    json['company'] != null ? new Company.fromJson(json['company']) : null;
+    json['company'] != null ? Company.fromJson(json['company']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -63,7 +63,7 @@ class Address {
     suite = json['suite'];
     city = json['city'];
     zipcode = json['zipcode'];
-    geo = json['geo'] != null ? new Geo.fromJson(json['geo']) : null;
+    geo = json['geo'] != null ? Geo.fromJson(json['geo']) : null;
   }
 
   Map<String, dynamic> toJson() {
