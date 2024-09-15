@@ -38,7 +38,7 @@ class SocialApp extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const PostList()));
+                                builder: (context) => PostList(user: user!)));
                       },
                     );
                   });

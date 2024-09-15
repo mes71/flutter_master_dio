@@ -6,7 +6,7 @@ class Post {
 
   Post(
       {required this.userId,
-      required this.id,
+       this.id,
       required this.title,
       required this.body});
 
