@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_master_dio/models/social/post.dart';
 import 'package:flutter_master_dio/models/social/user.dart';
+import 'package:flutter_master_dio/utils/custom_exception.dart';
 
 class SocialApi {
   final Dio _dio = Dio(BaseOptions(
@@ -41,11 +42,8 @@ class SocialApi {
       final response = await _dio.delete("/posts/$id/fake");
       print("Post deleted : ${response.data}");
     } on DioException catch (e) {
-      print("Error deleting post: ${e.message}");
-      print("Error deleting post: ${e.response}");
-      print("Error deleting post: ${e.response?.statusCode}");
-      print("Error deleting post: ${e.response?.statusMessage}");
-      throw Exception(e);
+      var exception = CustomException.fromDio(e).toString();
+      throw Exception(exception.toString());
     }
   }
 }
