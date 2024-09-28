@@ -9,41 +9,69 @@ class SocialApi {
       contentType: 'application/json; charset=UTF-8',
       responseType: ResponseType.json));
 
-  Future<List<User>> getAllUser() async {
-    final response = await _dio.get("/users");
+  Future<T> _getRequest<T>(
+      String path, T Function(dynamic data) fromJson) async {
+    try {
+      final response = await _dio.get(path);
+      return fromJson(response.data);
+    } on DioException catch (e) {
+      throw CustomException.fromDio(e);
+    }
+  }
 
-    List<User> res =
-        List.from(response.data).map((e) => User.fromJson(e)).toList();
-    return res;
+  Future<T> _postRequest<T>(
+      String path, T Function(dynamic data) fromJson) async {
+    try {
+      final response = await _dio.get(path);
+      return fromJson(response.data);
+    } on DioException catch (e) {
+      throw CustomException.fromDio(e);
+    }
+  }
+
+  Future<T> _putRequest<T>(
+      String path, T Function(dynamic data) fromJson) async {
+    try {
+      final response = await _dio.get(path);
+      return fromJson(response.data);
+    } on DioException catch (e) {
+      throw CustomException.fromDio(e);
+    }
+  }
+
+  Future<T> _deleteRequest<T>(
+      String path, T Function(dynamic data) fromJson) async {
+    try {
+      final response = await _dio.get(path);
+      return fromJson(response.data);
+    } on DioException catch (e) {
+      throw CustomException.fromDio(e);
+    }
+  }
+
+  Future<List<User>> getAllUser() async {
+    return await _getRequest("/users", (data) {
+      List<User> res = List.from(data).map((e) => User.fromJson(e)).toList();
+      return res;
+    });
   }
 
   Future<List<Post>> getPostsByUserId(int id) async {
-    final response = await _dio.get("/users/$id/posts");
-
-    List<Post> res =
-        List.from(response.data).map((e) => Post.fromJson(e)).toList();
-    return res;
+    return await _getRequest("/users/$id/posts",
+        (data) => List.from(data).map((e) => Post.fromJson(e)).toList());
   }
 
   Future<Post> createPostNew({required Post post}) async {
-    final response = await _dio.post("/posts", data: post.toJson());
-    print("Post created: ${response.data}");
-    return Post.fromJson(response.data);
+    return await _postRequest("/posts", (data) => Post.fromJson(data));
   }
 
   Future<Post> updatePost({required Post post}) async {
-    final response = await _dio.put("/posts/${post.id}", data: post.toJson());
-    print("Post updated : ${response.data}");
-    return Post.fromJson(response.data);
+    return await _putRequest(
+        "/posts/${post.id}", (data) => Post.fromJson(data));
   }
 
   Future<void> deletePost({required int id}) async {
-    try {
-      final response = await _dio.delete("/posts/$id/fake");
-      print("Post deleted : ${response.data}");
-    } on DioException catch (e) {
-      var exception = CustomException.fromDio(e).toString();
-      throw Exception(exception.toString());
-    }
+    return await _deleteRequest(
+        "/posts/$id/fake", (data) => Post.fromJson(data));
   }
 }

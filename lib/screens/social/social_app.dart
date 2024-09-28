@@ -20,6 +20,17 @@ class SocialApp extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
+            }
+
+            if (snapshot.hasError) {
+              return Center(
+                  child: Text(
+                "Error: ${snapshot.error}  \n please try again later",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.redAccent),
+              ));
             } else {
               List<User>? allUsers = snapshot.data;
               return ListView.builder(

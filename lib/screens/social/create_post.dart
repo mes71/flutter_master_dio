@@ -71,14 +71,24 @@ class _CreatePostState extends State<CreatePost> {
   }
 
   Future<void> _createPost() async {
-    if (_titleController.text.isEmpty || _bodyController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Title or Body cannot be empty")));
-      return;
+    try {
+      if (_titleController.text.isEmpty || _bodyController.text.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Title or Body cannot be empty")));
+        return;
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Got Error ${e.toString()}"),
+          backgroundColor: Colors.red,
+        ));
+      }
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
-    setState(() {
-      _isLoading = false;
-    });
 
     Post response = await SocialApi().createPostNew(
         post: Post(
