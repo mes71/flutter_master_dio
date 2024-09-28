@@ -37,7 +37,15 @@ class SocialApi {
   }
 
   Future<void> deletePost({required int id}) async {
-    final response = await _dio.delete("/posts/$id");
-    print("Post deleted : ${response.data}");
+    try {
+      final response = await _dio.delete("/posts/$id/fake");
+      print("Post deleted : ${response.data}");
+    } on DioException catch (e) {
+      print("Error deleting post: ${e.message}");
+      print("Error deleting post: ${e.response}");
+      print("Error deleting post: ${e.response?.statusCode}");
+      print("Error deleting post: ${e.response?.statusMessage}");
+      throw Exception(e);
+    }
   }
 }

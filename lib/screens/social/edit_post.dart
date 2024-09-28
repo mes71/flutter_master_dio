@@ -39,11 +39,22 @@ class _EditPostState extends State<EditPost> {
         actions: [
           IconButton(
               onPressed: () async {
-                await SocialApi().deletePost(id: widget.post.id!);
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Post deleted successfully")));
-                  Navigator.pop(context);
+                try {
+                  await SocialApi().deletePost(id: widget.post.id!);
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text("Post deleted successfully")));
+                    Navigator.pop(context);
+                  }
+                } catch (e) {
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Post deleted failure ${e.toString()}"),
+                        backgroundColor: Colors.redAccent,
+                      ),
+                    );
+                  }
                 }
               },
               icon: Icon(
