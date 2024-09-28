@@ -31,9 +31,13 @@ class SocialApi {
   }
 
   Future<Post> updatePost({required Post post}) async {
-    final response = await _dio.post("/posts/${post.id}", data: post.toJson());
+    final response = await _dio.put("/posts/${post.id}", data: post.toJson());
     print("Post updated : ${response.data}");
     return Post.fromJson(response.data);
   }
 
+  Future<void> deletePost({required int id}) async {
+    final response = await _dio.delete("/posts/$id");
+    print("Post deleted : ${response.data}");
+  }
 }

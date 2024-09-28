@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_master_dio/models/social/post.dart';
 import 'package:flutter_master_dio/models/social/user.dart';
+import 'package:flutter_master_dio/screens/social/edit_post.dart';
 import 'package:flutter_master_dio/services/social_api.dart';
 
 import 'create_post.dart';
@@ -36,12 +37,27 @@ class PostList extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              post?.title ?? '',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.teal),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    post?.title ?? '',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.teal),
+                                  ),
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EditPost(post: post!)));
+                                    },
+                                    icon: Icon(Icons.edit))
+                              ],
                             ),
                             SizedBox(
                               height: 8,

@@ -61,11 +61,7 @@ class _CreatePostState extends State<CreatePost> {
             _isLoading
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _isLoading = true;
-                      });
-                    },
+                    onPressed: _createPost,
                     child: const Text("Create Post"),
                   )
           ],
